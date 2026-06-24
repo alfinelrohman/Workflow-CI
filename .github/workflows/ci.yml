@@ -43,10 +43,18 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Set short SHA tag
+        id: vars
+        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
       - name: Build Docker image
         run: |
-          docker build -t elkhaqi/telco-churn-ci:latest ./MLProject
+          docker build \
+            -t elkhaqi/telco-churn-ci:latest \
+            -t elkhaqi/telco-churn-ci:sha-${{ steps.vars.outputs.sha_short }} \
+            ./MLProject
 
       - name: Push Docker image
         run: |
           docker push elkhaqi/telco-churn-ci:latest
+          docker push elkhaqi/telco-churn-ci:sha-${{ steps.vars.outputs.sha_short }}
