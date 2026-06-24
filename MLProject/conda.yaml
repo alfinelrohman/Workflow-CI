@@ -1,0 +1,15 @@
+cat > conda.yaml <<'EOF'
+name: telco-churn-ci
+channels:
+  - defaults
+dependencies:
+  - python=3.12
+  - pip
+  - pip:
+      - mlflow==3.14.0
+      - pandas
+      - scikit-learn
+      - joblib
+      - matplotlib
+      - seaborn
+EOF

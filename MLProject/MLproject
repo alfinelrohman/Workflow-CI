@@ -1,0 +1,9 @@
+name: telco-churn-ci
+
+entry_points:
+  main:
+    parameters:
+      data_path: {type: str, default: "churn_preprocessing/dataset_ready.csv"}
+      test_size: {type: float, default: 0.2}
+      random_state: {type: int, default: 42}
+    command: "python modelling.py --data_path {data_path} --test_size {test_size} --random_state {random_state}"
